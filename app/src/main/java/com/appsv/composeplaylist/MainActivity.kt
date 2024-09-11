@@ -80,21 +80,41 @@ fun GreetingPreview() {
 
 @Composable
 fun Counter(modifier: Modifier = Modifier) {
+
     var count by rememberSaveable {
         mutableIntStateOf(0)
     }
+
+    Log.d("Recomposition", "Counter Lambda")
+
     Column {
-        Text(
-            modifier = Modifier.padding(start = 30.dp),
-            text = "$count",
-            color = Color.Blue
-        )
+        Log.d("Recomposition", "Column Lambda")
+
+
         Button(onClick = {
             count++
-            Log.d("COUNTTTT", count.toString())
+
         }) {
-            Text(text = "Increment")
+            Text(text = "Increment1 Count - $count")
+            Log.d("Recomposition", "Button Lambda1")
         }
+
+        Button(onClick = {
+
+        }) {
+            Text(text = "Increment2")
+            Log.d("Recomposition", "Button Lambda2")
+        }
+
+        Button(onClick = {
+            count++
+
+        }) {
+            Text(text = "Increment3 Count - $count")
+            Log.d("Recomposition", "Button Lambda3")
+        }
+
+
     }
 
 
