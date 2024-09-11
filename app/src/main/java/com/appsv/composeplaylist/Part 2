@@ -6,6 +6,10 @@
             🚀 Text Composable
             🚀 Button Composable
             🚀 State
+                🔥State in an app is any value that can change over time.
+                🔥Any time a state is updated a recomposition takes place.
+            🚀 Example to explain State - Make a counter (remember() vs rememberSaveable())
+            🚀 Example of efficient Recomposition
 
 
 
