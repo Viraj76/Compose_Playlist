@@ -1,0 +1,21 @@
+
+              🌟 Welcome to the Jetpack Compose Playlist 🌟
+
+          💥Introduction and Recomposition
+
+            🚀 Jetpack Compose ?
+            🚀 XML vs Jetpack Compose
+            🚀 Create a Compose Project
+            🚀 Composable function working ?
+            🚀 Recomposition ?
+            🚀 Important points -:
+                🔥 Composable functions can execute in any order.
+                🔥 Composable functions can execute in parallel.
+                🔥 Recomposition skips as many composable functions and
+                   lambdas as possible.  (example in next video)
+                🔥 Recomposition is optimistic and may be canceled.
+                🔥 A composable function might be run quite frequently,
+                   as often as every frame of an animation.
+
+
+          Ref : Thinking in compose     (search)
