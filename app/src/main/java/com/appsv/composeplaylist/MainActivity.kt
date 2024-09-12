@@ -35,6 +35,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -108,6 +109,7 @@ fun LudoBoardWithCorners() {
             modifier = Modifier
                 .size(100.dp)
                 .padding(5.dp)
+                .clip(RoundedCornerShape(6.dp))
                 .background(Color.DarkGray),
             contentAlignment = Alignment.Center
         ){
@@ -119,6 +121,7 @@ fun LudoBoardWithCorners() {
             modifier = Modifier
                 .size(110.dp)
                 .padding(5.dp)
+                .clip(RoundedCornerShape(6.dp))
                 .align(Alignment.TopStart)
         )
 
@@ -128,6 +131,7 @@ fun LudoBoardWithCorners() {
             modifier = Modifier
                 .size(110.dp)
                 .padding(5.dp)
+                .clip(RoundedCornerShape(6.dp))
                 .align(Alignment.TopEnd)
         )
 
@@ -137,6 +141,7 @@ fun LudoBoardWithCorners() {
             modifier = Modifier
                 .size(110.dp)
                 .padding(5.dp)
+                .clip(RoundedCornerShape(6.dp))
                 .align(Alignment.BottomStart)
         )
 
@@ -146,6 +151,7 @@ fun LudoBoardWithCorners() {
             modifier = Modifier
                 .size(110.dp)
                 .padding(5.dp)
+                .clip(RoundedCornerShape(6.dp))
                 .align(Alignment.BottomEnd)
         )
     }
