@@ -20,8 +20,10 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -43,10 +45,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -158,224 +163,51 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         }
     }
 
-
-
 }
 
-@Preview(showSystemUi = true, showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun BoxSurfaceCard() {
-    Box(
+fun SurfaceComp(modifier: Modifier = Modifier) {
+
+    Surface(
         modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Blue),
-        propagateMinConstraints = false,
-        contentAlignment = Alignment.Center
+            .padding(16.dp)
+            .fillMaxWidth()
+            .height(150.dp)
+            .shadow(
+                elevation = 8.dp,
+                shape = RoundedCornerShape(8.dp),
+                spotColor = Color.Blue
+            )
+            .clip(RoundedCornerShape(8.dp)),
+        color = Color.White,
+        shape = RoundedCornerShape(8.dp),
+        tonalElevation = 20.dp,
     ) {
         Box(
-            modifier = Modifier
-                .size(250.dp)
-                .clip(RoundedCornerShape(15.dp))
-                .background(Color.LightGray),
             contentAlignment = Alignment.Center
         ) {
-            Box(
-                modifier = Modifier
-                    .size(90.dp)
-                    .padding(5.dp)
-                    .clip(RoundedCornerShape(15.dp))
-                    .background(Color.Green)
-                    .align(Alignment.TopStart)
+            Text(
+                text = "Subscribe",
+                style = TextStyle(
+                    fontSize = 40.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    shadow = Shadow(
+                        color = Color.Blue,
+                        blurRadius = 15f,
+                    )
+                ),
 
-            ){
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
 
-                        .align(Alignment.TopStart)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.TopEnd)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.BottomStart)
-                )
-                Box(
-                        modifier = Modifier
-                            .size(30.dp)
-                            .padding(5.dp)
-                            .alpha(0.2f)
-                            .clip(RoundedCornerShape(15.dp))
-                            .background(Color.Black)
-                            .align(Alignment.BottomEnd)
-                        )
-
-            }
-            Box(
-                modifier = Modifier
-                    .size(107.dp)
-                    .padding(5.dp)
-                    .clip(RoundedCornerShape(15.dp))
-                    .background(Color.Gray)
             )
-            Box(
-                modifier = Modifier
-                    .size(90.dp)
-                    .padding(5.dp)
-                    .clip(RoundedCornerShape(15.dp))
-                    .background(Color.Yellow)
-                    .align(Alignment.TopEnd)
-            ){
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-
-                        .align(Alignment.TopStart)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.TopEnd)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.BottomStart)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.BottomEnd)
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .size(90.dp)
-                    .padding(5.dp)
-                    .clip(RoundedCornerShape(15.dp))
-                    .background(Color.Cyan)
-                    .align(Alignment.BottomStart)
-            ){
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-
-                        .align(Alignment.TopStart)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.TopEnd)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.BottomStart)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.BottomEnd)
-                )
-            }
-            Box(
-                modifier = Modifier
-                    .size(90.dp)
-                    .padding(5.dp)
-                    .clip(RoundedCornerShape(15.dp))
-                    .background(Color.Red)
-                    .align(Alignment.BottomEnd)
-            ){
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-
-                        .align(Alignment.TopStart)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.TopEnd)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.BottomStart)
-                )
-                Box(
-                    modifier = Modifier
-                        .size(30.dp)
-                        .padding(5.dp)
-                        .alpha(0.2f)
-                        .clip(RoundedCornerShape(15.dp))
-                        .background(Color.Black)
-                        .align(Alignment.BottomEnd)
-                )
-            }
-
         }
+
     }
+
+
 }
+
 
 //@Preview(showBackground = true, showSystemUi = true)
 //@Composable
