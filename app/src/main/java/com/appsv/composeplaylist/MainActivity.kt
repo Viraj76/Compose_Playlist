@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -165,6 +166,7 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     }
 
 }
+
 //@Preview(showBackground = true, showSystemUi = true)
 //@Composable
 //fun GreetingPreview() {
@@ -172,9 +174,9 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 //        Greeting("Android")
 //    }
 //}
-
 @Composable
 fun ComposableBox() {
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -231,7 +233,6 @@ fun ComposableBox() {
     }
 }
 
-@Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun ComposableSurface(modifier: Modifier = Modifier) {
     Surface(
@@ -247,12 +248,12 @@ fun ComposableSurface(modifier: Modifier = Modifier) {
         color = Color.White,
         shadowElevation = 10.dp,
         shape = RoundedCornerShape(15.dp),
-        border = BorderStroke(1.dp,Color.Red)
+        border = BorderStroke(1.dp, Color.Red)
     ) {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
-        ){
+        ) {
             Text(
                 text = "Subscribe",
                 style = TextStyle(
@@ -265,6 +266,79 @@ fun ComposableSurface(modifier: Modifier = Modifier) {
                     )
                 )
             )
+        }
+    }
+}
+
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun CounterScreen(modifier: Modifier = Modifier) {
+    var count by rememberSaveable {
+        mutableIntStateOf(0)
+    }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White),
+        contentAlignment = Alignment.Center
+    ) {
+
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+
+
+            Text(
+                text = "Counter App",
+                style = TextStyle(
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    shadow = Shadow(
+                        color = Color.Blue,
+                        blurRadius = 20f
+                    )
+                )
+            )
+            Spacer(modifier = Modifier.height(50.dp))
+            Text(
+                text = count.toString(),
+                style = TextStyle(
+                    fontSize = 70.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    shadow = Shadow(
+                        color = Color.Cyan,
+                        blurRadius = 20f
+                    )
+                )
+            )
+
+            Spacer(modifier = Modifier.height(20.dp))
+
+            Button(
+                onClick = {
+                    // button clicked
+                    count++
+
+                },
+
+                shape = RoundedCornerShape(topEnd = 10.dp, bottomStart = 10.dp),
+                colors = ButtonDefaults.buttonColors().copy(
+                    containerColor = Color.Blue,
+                    contentColor = Color.Green,
+                ),
+                border = BorderStroke(
+                    3.dp,
+                    Brush.horizontalGradient(listOf(Color.Magenta, Color.Green, Color.Yellow))
+                ),
+                contentPadding = PaddingValues(start = 45.dp, end = 45.dp, top = 15.dp, bottom = 15.dp)
+            ) {
+                Text(text = "Count" , fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Log.d("PCoders", "B1")
+            }
+
+
         }
     }
 }
