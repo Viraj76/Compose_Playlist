@@ -29,6 +29,8 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -81,7 +83,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -164,51 +165,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
     }
 
 }
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun SurfaceComp(modifier: Modifier = Modifier) {
-
-    Surface(
-        modifier = Modifier
-            .padding(16.dp)
-            .fillMaxWidth()
-            .height(150.dp)
-            .shadow(
-                elevation = 8.dp,
-                shape = RoundedCornerShape(8.dp),
-                spotColor = Color.Blue
-            )
-            .clip(RoundedCornerShape(8.dp)),
-        color = Color.White,
-        shape = RoundedCornerShape(8.dp),
-        tonalElevation = 20.dp,
-    ) {
-        Box(
-            contentAlignment = Alignment.Center
-        ) {
-            Text(
-                text = "Subscribe",
-                style = TextStyle(
-                    fontSize = 40.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White,
-                    shadow = Shadow(
-                        color = Color.Blue,
-                        blurRadius = 15f,
-                    )
-                ),
-
-
-            )
-        }
-
-    }
-
-
-}
-
-
 //@Preview(showBackground = true, showSystemUi = true)
 //@Composable
 //fun GreetingPreview() {
@@ -217,3 +173,98 @@ fun SurfaceComp(modifier: Modifier = Modifier) {
 //    }
 //}
 
+@Composable
+fun ComposableBox() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.Blue),
+        contentAlignment = Alignment.Center,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(300.dp)
+                .padding(20.dp)
+                .clip(RoundedCornerShape(30.dp))
+                .background(Color.DarkGray),
+            contentAlignment = Alignment.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .size(100.dp)
+                    .clip(RoundedCornerShape(30.dp))
+                    .background(Color.LightGray),
+            )
+            Box(
+                modifier = Modifier
+                    .size(100.dp)
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(30.dp))
+                    .background(Color.Red)
+                    .align(Alignment.TopStart),
+            )
+            Box(
+                modifier = Modifier
+                    .size(100.dp)
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(30.dp))
+                    .background(Color.Yellow)
+                    .align(Alignment.TopEnd),
+            )
+            Box(
+                modifier = Modifier
+                    .size(100.dp)
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(30.dp))
+                    .background(Color.Blue)
+                    .align(Alignment.BottomStart),
+            )
+            Box(
+                modifier = Modifier
+                    .size(100.dp)
+                    .padding(8.dp)
+                    .clip(RoundedCornerShape(30.dp))
+                    .background(Color.Green)
+                    .align(Alignment.BottomEnd),
+            )
+        }
+    }
+}
+
+@Preview(showSystemUi = true, showBackground = true)
+@Composable
+fun ComposableSurface(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+            .height(200.dp)
+            .shadow(
+                elevation = 10.dp,
+                spotColor = Color.Red,
+                shape = RoundedCornerShape(15.dp)
+            ),
+        color = Color.White,
+        shadowElevation = 10.dp,
+        shape = RoundedCornerShape(15.dp),
+        border = BorderStroke(1.dp,Color.Red)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ){
+            Text(
+                text = "Subscribe",
+                style = TextStyle(
+                    fontSize = 50.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    shadow = Shadow(
+                        color = Color.Red,
+                        blurRadius = 20f
+                    )
+                )
+            )
+        }
+    }
+}
