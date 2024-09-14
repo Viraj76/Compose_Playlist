@@ -6,6 +6,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -26,16 +27,25 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.sharp.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -49,11 +59,17 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shadow
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -167,13 +183,13 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 
 }
 
-//@Preview(showBackground = true, showSystemUi = true)
-//@Composable
-//fun GreetingPreview() {
-//    ComposePlaylistTheme {
-//        Greeting("Android")
-//    }
-//}
+@Composable
+fun GreetingPreview() {
+    ComposePlaylistTheme {
+        Greeting("Android")
+    }
+}
+
 @Composable
 fun ComposableBox() {
 
@@ -270,7 +286,6 @@ fun ComposableSurface(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showSystemUi = true, showBackground = true)
 @Composable
 fun CounterScreen(modifier: Modifier = Modifier) {
     var count by rememberSaveable {
@@ -332,9 +347,14 @@ fun CounterScreen(modifier: Modifier = Modifier) {
                     3.dp,
                     Brush.horizontalGradient(listOf(Color.Magenta, Color.Green, Color.Yellow))
                 ),
-                contentPadding = PaddingValues(start = 45.dp, end = 45.dp, top = 15.dp, bottom = 15.dp)
+                contentPadding = PaddingValues(
+                    start = 45.dp,
+                    end = 45.dp,
+                    top = 15.dp,
+                    bottom = 15.dp
+                )
             ) {
-                Text(text = "Count" , fontWeight = FontWeight.Bold, fontSize = 18.sp)
+                Text(text = "Count", fontWeight = FontWeight.Bold, fontSize = 18.sp)
                 Log.d("PCoders", "B1")
             }
 
@@ -342,3 +362,48 @@ fun CounterScreen(modifier: Modifier = Modifier) {
         }
     }
 }
+
+
+@Composable
+fun ComposableImage(modifier: Modifier = Modifier) {
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(200.dp)
+            .padding(20.dp)
+            .shadow(20.dp, shape = RoundedCornerShape(20.dp), spotColor = Color.Yellow)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.papaya_coders),
+            contentDescription = "Papaya Coders",
+            contentScale = ContentScale.Fit,
+            alignment = Alignment.Center,
+            alpha = 1f,
+            colorFilter = ColorFilter.tint(Color.Green, blendMode = BlendMode.Overlay)
+        )
+    }
+
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ComposableIcons(modifier: Modifier = Modifier) {
+
+    IconButton(
+        onClick = { /*TODO*/ },
+        colors = IconButtonDefaults.iconButtonColors().copy(
+            containerColor = Color.Blue
+        )
+    ) {
+        Icon(
+            imageVector = Icons.Sharp.Close,
+            contentDescription = "Icon",
+            tint =  Color.Green,
+
+        )
+    }
+
+}
+
+
+
