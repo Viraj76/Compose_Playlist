@@ -31,6 +31,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.sharp.Close
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -363,7 +370,7 @@ fun CounterScreen(modifier: Modifier = Modifier) {
     }
 }
 
-
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ComposableImage(modifier: Modifier = Modifier) {
     Surface(
@@ -379,7 +386,6 @@ fun ComposableImage(modifier: Modifier = Modifier) {
             contentScale = ContentScale.Fit,
             alignment = Alignment.Center,
             alpha = 1f,
-            colorFilter = ColorFilter.tint(Color.Green, blendMode = BlendMode.Overlay)
         )
     }
 
@@ -404,6 +410,99 @@ fun ComposableIcons(modifier: Modifier = Modifier) {
     }
 
 }
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ColorfulIconButtons() {
+    Row(
+        modifier = Modifier.padding(16.dp),
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
+        IconButton(
+            onClick = { /* Handle click */ },
+            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Blue)
+        ) {
+            Icon(
+                Icons.Filled.Home,
+                contentDescription = "Home",
+                tint = Color.White,
+                modifier = Modifier.size(25.dp)
+            )
+        }
+
+        IconButton(
+            onClick = { /* Handle click */ },
+            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Green)
+        ) {
+            Icon(
+                Icons.Filled.Search,
+                contentDescription = "Search",
+                tint = Color.White,
+                modifier = Modifier.size(25.dp)
+            )
+        }
+
+        IconButton(
+            onClick = { /* Handle click */ },
+            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Red)
+        ) {
+            Icon(
+                Icons.Filled.Favorite,
+                contentDescription = "Favorite",
+                tint = Color.White,
+                modifier = Modifier.size(25.dp)
+            )
+        }
+
+        IconButton(
+            onClick = { /* Handle click */ },
+            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Gray)
+        ) {
+            Icon(
+                Icons.Filled.Settings,
+                contentDescription = "Settings",
+                tint = Color.White,
+                modifier = Modifier.size(25.dp)
+            )
+        }
+
+        IconButton(
+            onClick = { /* Handle click */ },
+            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Yellow)
+        ) {
+            Icon(
+                Icons.Filled.Email,
+                contentDescription = "Email",
+                tint = Color.Black,
+                modifier = Modifier.size(25.dp)
+            )
+        }
+
+        IconButton(
+            onClick = { /* Handle click */ },
+            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Magenta)
+        ) {
+            Icon(
+                Icons.Filled.Notifications,
+                contentDescription = "Notifications",
+                tint = Color.White,
+                modifier = Modifier.size(25.dp)
+            )
+        }
+
+        IconButton(
+            onClick = { /* Handle click */ },
+            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Cyan)
+        ) {
+            Icon(
+                Icons.Filled.Person,
+                contentDescription = "Profile",
+                tint = Color.White,
+                modifier = Modifier.size(25.dp)
+            )
+        }
+    }
+}
+
 
 
 
