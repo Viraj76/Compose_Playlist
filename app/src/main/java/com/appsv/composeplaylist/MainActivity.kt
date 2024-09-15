@@ -27,6 +27,8 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Clear
@@ -49,10 +51,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -80,6 +84,8 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
@@ -370,7 +376,6 @@ fun CounterScreen(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ComposableImage(modifier: Modifier = Modifier) {
     Surface(
@@ -391,7 +396,7 @@ fun ComposableImage(modifier: Modifier = Modifier) {
 
 }
 
-@Preview(showBackground = true, showSystemUi = true)
+//@Preview(showackground = true, showSystemUi = true)
 @Composable
 fun ComposableIcons(modifier: Modifier = Modifier) {
 
@@ -410,97 +415,57 @@ fun ComposableIcons(modifier: Modifier = Modifier) {
     }
 
 }
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun ColorfulIconButtons() {
-    Row(
-        modifier = Modifier.padding(16.dp),
-        horizontalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        IconButton(
-            onClick = { /* Handle click */ },
-            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Blue)
-        ) {
-            Icon(
-                Icons.Filled.Home,
-                contentDescription = "Home",
-                tint = Color.White,
-                modifier = Modifier.size(25.dp)
-            )
-        }
+fun ComposableTextField(modifier: Modifier = Modifier) {
 
-        IconButton(
-            onClick = { /* Handle click */ },
-            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Green)
-        ) {
-            Icon(
-                Icons.Filled.Search,
-                contentDescription = "Search",
-                tint = Color.White,
-                modifier = Modifier.size(25.dp)
-            )
-        }
-
-        IconButton(
-            onClick = { /* Handle click */ },
-            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Red)
-        ) {
-            Icon(
-                Icons.Filled.Favorite,
-                contentDescription = "Favorite",
-                tint = Color.White,
-                modifier = Modifier.size(25.dp)
-            )
-        }
-
-        IconButton(
-            onClick = { /* Handle click */ },
-            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Gray)
-        ) {
-            Icon(
-                Icons.Filled.Settings,
-                contentDescription = "Settings",
-                tint = Color.White,
-                modifier = Modifier.size(25.dp)
-            )
-        }
-
-        IconButton(
-            onClick = { /* Handle click */ },
-            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Yellow)
-        ) {
-            Icon(
-                Icons.Filled.Email,
-                contentDescription = "Email",
-                tint = Color.Black,
-                modifier = Modifier.size(25.dp)
-            )
-        }
-
-        IconButton(
-            onClick = { /* Handle click */ },
-            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Magenta)
-        ) {
-            Icon(
-                Icons.Filled.Notifications,
-                contentDescription = "Notifications",
-                tint = Color.White,
-                modifier = Modifier.size(25.dp)
-            )
-        }
-
-        IconButton(
-            onClick = { /* Handle click */ },
-            colors = IconButtonDefaults.iconButtonColors(containerColor = Color.Cyan)
-        ) {
-            Icon(
-                Icons.Filled.Person,
-                contentDescription = "Profile",
-                tint = Color.White,
-                modifier = Modifier.size(25.dp)
-            )
-        }
+    var text by remember {
+        mutableStateOf("")
     }
+    OutlinedTextField(
+        modifier = Modifier.padding(30.dp),
+        value = text,
+        onValueChange = {
+            text = it
+        },
+        label = {
+            Text(text = "Enter email here")
+        },
+        placeholder = {
+            Text(text = "Email")
+        },
+        leadingIcon = {
+            Icon(imageVector = Icons.Default.Email, contentDescription = "")
+        },
+        trailingIcon = {
+            Icon(
+                imageVector = Icons.Default.Done,
+                contentDescription = ""
+            )
+        },
+
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+        colors = TextFieldDefaults.colors().copy(
+            focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
+            focusedLabelColor = Color.Blue,
+            unfocusedLabelColor = Color.Blue,
+            focusedPlaceholderColor = Color.Blue,
+            unfocusedPlaceholderColor = Color.Blue,
+            focusedLeadingIconColor = Color.Blue,
+            unfocusedLeadingIconColor = Color.Blue,
+            focusedTextColor = Color.Blue,
+            unfocusedTextColor = Color.Blue,
+            focusedTrailingIconColor = Color.Blue,
+            unfocusedTrailingIconColor = Color.Blue,
+            focusedIndicatorColor = Color.Blue,
+            unfocusedIndicatorColor = Color.Blue,
+            cursorColor = Color.Blue
+
+        )
+
+    )
 }
 
 
