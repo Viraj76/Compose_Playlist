@@ -1,5 +1,6 @@
 package com.appsv.composeplaylist
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -84,7 +85,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -93,6 +97,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.edit
 import com.appsv.composeplaylist.ui.theme.ComposePlaylistTheme
 import kotlin.math.truncate
 
@@ -396,7 +401,7 @@ fun ComposableImage(modifier: Modifier = Modifier) {
 
 }
 
-//@Preview(showackground = true, showSystemUi = true)
+
 @Composable
 fun ComposableIcons(modifier: Modifier = Modifier) {
 
@@ -416,55 +421,75 @@ fun ComposableIcons(modifier: Modifier = Modifier) {
 
 }
 
+
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ComposableTextField(modifier: Modifier = Modifier) {
 
-    var text by remember {
+    var tfText by remember {
         mutableStateOf("")
     }
-    OutlinedTextField(
+
+    var passwordVisible by remember {
+        mutableStateOf(false)
+    }
+
+    TextField(
+        value = tfText,
+        onValueChange = { text->
+            tfText = text
+        },
         modifier = Modifier.padding(30.dp),
-        value = text,
-        onValueChange = {
-            text = it
-        },
         label = {
-            Text(text = "Enter email here")
-        },
-        placeholder = {
             Text(text = "Email")
         },
-        leadingIcon = {
-            Icon(imageVector = Icons.Default.Email, contentDescription = "")
-        },
+       leadingIcon = {
+           Icon(
+               imageVector = Icons.Default.Email,
+               contentDescription = "Email Icon"
+           )
+       },
         trailingIcon = {
-            Icon(
-                imageVector = Icons.Default.Done,
-                contentDescription = ""
-            )
+            IconButton(onClick = {
+                passwordVisible = !passwordVisible
+            }) {
+                Icon(
+                    imageVector =Icons.Default.Done,
+                    tint = Color.Blue,
+                    contentDescription = "Email Icon"
+                )
+            }
+
         },
 
-        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+        visualTransformation = if(!passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
+        keyboardOptions = KeyboardOptions(
+            KeyboardCapitalization.Words,
+            keyboardType = KeyboardType.Text,
+            imeAction = ImeAction.Search
+        ),
+        keyboardActions = KeyboardActions(
+            onSearch = {
+                Log.d("OnSearch", "OnSearch")
+            }
+        ),
         colors = TextFieldDefaults.colors().copy(
-            focusedContainerColor = Color.Transparent,
-            unfocusedContainerColor = Color.Transparent,
+            focusedTextColor = Color.Blue,
+            unfocusedTextColor = Color.Blue,
+            focusedContainerColor = Color.Cyan,
+            unfocusedContainerColor = Color.Cyan,
             focusedLabelColor = Color.Blue,
             unfocusedLabelColor = Color.Blue,
             focusedPlaceholderColor = Color.Blue,
             unfocusedPlaceholderColor = Color.Blue,
-            focusedLeadingIconColor = Color.Blue,
-            unfocusedLeadingIconColor = Color.Blue,
-            focusedTextColor = Color.Blue,
-            unfocusedTextColor = Color.Blue,
             focusedTrailingIconColor = Color.Blue,
             unfocusedTrailingIconColor = Color.Blue,
+            focusedLeadingIconColor = Color.Blue,
+            unfocusedLeadingIconColor = Color.Blue,
             focusedIndicatorColor = Color.Blue,
             unfocusedIndicatorColor = Color.Blue,
             cursorColor = Color.Blue
-
         )
-
     )
 }
 
