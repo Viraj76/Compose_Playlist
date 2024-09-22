@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.widget.CheckBox
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -70,6 +71,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Checkbox
+import androidx.compose.material3.CheckboxColors
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ChipColors
 import androidx.compose.material3.ChipElevation
 import androidx.compose.material3.FilterChip
@@ -81,15 +85,19 @@ import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -113,6 +121,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.state.ToggleableState
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -615,7 +624,6 @@ fun ComposableChips(modifier: Modifier = Modifier) {
         )
     }
 }
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ComposableLazy(modifier: Modifier = Modifier) {
     LazyColumn(
@@ -701,9 +709,95 @@ fun CricketersItem(
                 )
             )
         }
-
-
     }
 }
+
+
+@Composable
+fun ComposableCheckBoxes(modifier: Modifier = Modifier) {
+
+    var checked by remember {
+        mutableStateOf(false)
+    }
+
+    Checkbox(
+        checked = checked,
+        onCheckedChange =  {
+            checked = !checked
+        },
+        colors = CheckboxDefaults.colors().copy(
+            checkedBoxColor = Color.Blue,
+            uncheckedBoxColor = Color.Blue,
+            checkedBorderColor = Color.Green,
+            uncheckedBorderColor = Color.Green,
+            checkedCheckmarkColor = Color.Green,
+            uncheckedCheckmarkColor = Color.Green,
+        )
+    )
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun CheckboxParentExample() {
+    // Initialize states for the child checkboxes
+    val childCheckedStates = remember { mutableStateListOf(false, false, false) }
+
+    // Compute the parent state based on children's states
+    val parentState = when {
+
+        childCheckedStates.all { it } -> ToggleableState.On
+
+        childCheckedStates.none { it } -> ToggleableState.Off
+
+        else -> ToggleableState.Indeterminate
+    }
+
+    Column {
+
+        // Parent TriStateCheckbox
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text("Select all")
+
+            TriStateCheckbox(
+                state = parentState,
+                onClick = {
+
+                    // Determine new state based on current state
+                    val newState = parentState != ToggleableState.On
+
+                    childCheckedStates.forEachIndexed { index, _ ->
+                        childCheckedStates[index] = newState
+                    }
+
+                }
+            )
+        }
+
+        // Child Checkboxes
+        childCheckedStates.forEachIndexed { index, checked ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text("Option ${index + 1}")
+                Checkbox(
+                    checked = checked,
+                    onCheckedChange = { isChecked ->
+                        // Update the individual child state
+                        childCheckedStates[index] = isChecked
+                    }
+                )
+            }
+        }
+    }
+
+    if (childCheckedStates.all { it }) {
+        Text("All options selected")
+    }
+}
+
+
+
 
 
