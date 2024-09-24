@@ -46,6 +46,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.pager.PagerSnapDistance
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CutCornerShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -53,11 +54,14 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
@@ -65,17 +69,20 @@ import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.sharp.Close
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.AssistChipDefaults
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.ChipColors
 import androidx.compose.material3.ChipElevation
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.Icon
@@ -83,7 +90,9 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
+import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.MediumTopAppBar
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Scaffold
@@ -92,6 +101,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -624,6 +636,7 @@ fun ComposableChips(modifier: Modifier = Modifier) {
         )
     }
 }
+
 @Composable
 fun ComposableLazy(modifier: Modifier = Modifier) {
     LazyColumn(
@@ -665,8 +678,8 @@ val cricketPlayersList = listOf(
 @Composable
 fun CricketersItem(
     modifier: Modifier = Modifier,
-    name : String = "Virat",
-    color : Color = Color.Blue
+    name: String = "Virat",
+    color: Color = Color.Blue
 ) {
     Surface(
         modifier = Modifier
@@ -681,9 +694,9 @@ fun CricketersItem(
         shape = RoundedCornerShape(15.dp),
         border = BorderStroke(1.dp, color)
     ) {
-        Row (
+        Row(
             verticalAlignment = Alignment.CenterVertically
-        ){
+        ) {
             Spacer(modifier = Modifier.width(20.dp))
             Icon(
                 modifier = Modifier
@@ -696,7 +709,7 @@ fun CricketersItem(
             )
             Spacer(modifier = Modifier.width(15.dp))
             Text(
-                modifier =  Modifier.padding(10.dp),
+                modifier = Modifier.padding(10.dp),
                 text = name,
                 style = TextStyle(
                     fontSize = 40.sp,
@@ -722,7 +735,7 @@ fun ComposableCheckBoxes(modifier: Modifier = Modifier) {
 
     Checkbox(
         checked = checked,
-        onCheckedChange =  {
+        onCheckedChange = {
             checked = !checked
         },
         colors = CheckboxDefaults.colors().copy(
@@ -736,7 +749,7 @@ fun ComposableCheckBoxes(modifier: Modifier = Modifier) {
     )
 }
 
-@Preview(showSystemUi = true)
+
 @Composable
 fun CheckboxParentExample() {
     // Initialize states for the child checkboxes
@@ -797,6 +810,55 @@ fun CheckboxParentExample() {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ComposableTopAppbar(modifier: Modifier = Modifier) {
+    TopAppBar(
+        title = {
+            Text(
+                text = "Home",
+            )
+        },
+        navigationIcon = {
+            Icon(imageVector = Icons.Default.Home, contentDescription = "Home")
+        },
+        actions = {
+            Icon(imageVector = Icons.Default.Settings, contentDescription = "Home")
+            Spacer(modifier = Modifier.width(20.dp))
+            Icon(imageVector = Icons.Default.Info, contentDescription = "Home")
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+
+            )
+    )
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showSystemUi = true)
+@Composable
+fun ComposableBottomApp(modifier: Modifier = Modifier) {
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween
+    ) {
+
+        ComposableTopAppbar()
+
+        BottomAppBar(
+            contentPadding = PaddingValues(start = 20.dp)
+        ) {
+            Icon(imageVector = Icons.Default.Edit, contentDescription = "")
+            Spacer(modifier = Modifier.width(20.dp))
+            Icon(imageVector = Icons.Default.Done, contentDescription = "")
+            Spacer(modifier = Modifier.width(20.dp))
+            Icon(imageVector = Icons.Default.Build, contentDescription = "")
+        }
+    }
+
+}
 
 
 
