@@ -39,6 +39,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.sharp.Close
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -864,7 +865,6 @@ fun ComposableFAB(modifier: Modifier = Modifier) {
    }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ComposableNavigationDrawer(modifier: Modifier = Modifier) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -919,7 +919,70 @@ fun ComposableNavigationDrawer(modifier: Modifier = Modifier) {
         drawerState = drawerState
     ) {
         ComposableScaffold(drawerState)
+
     }
+}
+
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ComposableDialog(modifier: Modifier = Modifier) {
+
+    var showDialog by remember {
+        mutableStateOf(false)
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Button(onClick = {
+            showDialog = true
+        }) {
+            Text(text = "Show Dialog")
+        }
+    }
+
+//    if(showDialog){
+//        AlertDialog(
+//            onDismissRequest = {
+//                showDialog = false
+//            },
+//            confirmButton = {
+//                Button(onClick = {
+//                    showDialog = false
+//                }) {
+//                    Text(text = "Confirm")
+//                }
+//            },
+//            icon = {
+//                Icon(imageVector = Icons.Default.Build, contentDescription = "")
+//            },
+//            title = {
+//                Text(text = "Alert dialog")
+//            },
+//            text = {
+//                Text(text = "This is an alert dialog")
+//            },
+//            dismissButton = {
+//                Button(onClick = {
+//                    showDialog = false
+//                }) {
+//                    Text(text = "Cancel")
+//                }
+//            }
+//
+//        )
+//    }
+
+    if(showDialog){
+        Dialog(onDismissRequest = {
+            showDialog = false
+        }) {
+            ComposableTextField()
+        }
+    }
+
+
 }
 
 
