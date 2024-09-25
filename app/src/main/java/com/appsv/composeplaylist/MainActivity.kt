@@ -26,14 +26,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Done
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.sharp.Close
 import androidx.compose.material3.BottomAppBar
@@ -41,16 +44,22 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.DrawerState
+import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Surface
@@ -60,6 +69,7 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.TriStateCheckbox
+import androidx.compose.material3.rememberDrawerState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -67,6 +77,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -91,7 +102,9 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import com.appsv.composeplaylist.ui.theme.ComposePlaylistTheme
+import kotlinx.coroutines.launch
 
 
 class MainActivity : ComponentActivity() {
@@ -752,7 +765,8 @@ fun CheckboxParentExample() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ComposableTopAppbar(scrollBehavior: TopAppBarScrollBehavior) {
+fun ComposableTopAppbar(scrollBehavior: TopAppBarScrollBehavior, drawerState: DrawerState) {
+    val scope = rememberCoroutineScope()
     LargeTopAppBar(
         title = {
             Text(
@@ -760,7 +774,16 @@ fun ComposableTopAppbar(scrollBehavior: TopAppBarScrollBehavior) {
             )
         },
         navigationIcon = {
-            Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Home")
+            IconButton(onClick = {
+
+                    scope.launch {
+                        drawerState.apply {
+                        if(isOpen) close() else open()
+                    }
+                }
+            }) {
+                Icon(imageVector = Icons.Default.Menu, contentDescription = "Home")
+            }
         },
         actions = {
             Icon(imageVector = Icons.Default.Settings, contentDescription = "Home")
@@ -795,13 +818,14 @@ fun ComposableBottomApp(modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 
+
 @Composable
-fun ComposableScaffold(modifier: Modifier = Modifier) {
+fun ComposableScaffold(drawerState: DrawerState) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
-            ComposableTopAppbar(scrollBehavior)
+            ComposableTopAppbar(scrollBehavior,drawerState)
         },
         bottomBar = {
             ComposableBottomApp()
@@ -811,27 +835,92 @@ fun ComposableScaffold(modifier: Modifier = Modifier) {
                 Icon(imageVector = Icons.Default.Add, contentDescription = "")
             }
         },
-        floatingActionButtonPosition = FabPosition.Start
+        floatingActionButtonPosition = FabPosition.End
     ) { innerPadding ->
         ComposableLazy(modifier = Modifier.padding(innerPadding))
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ComposableFAB(modifier: Modifier = Modifier) {
    Box(
        modifier = Modifier.fillMaxSize()
    ) {
+       Dialog(onDismissRequest = { /*TODO*/ }) {
+           
+       }
+
        FloatingActionButton(
-           modifier = Modifier.padding(20.dp).align(Alignment.BottomEnd),
+           modifier = Modifier
+               .padding(20.dp)
+               .align(Alignment.BottomEnd),
            onClick = { /*TODO*/ },
        ) {
+           ModalNavigationDrawer(drawerContent = { /*TODO*/ }) {
+               
+           }
            Icon(imageVector = Icons.Default.Add, contentDescription = "")
        }
    }
 }
 
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ComposableNavigationDrawer(modifier: Modifier = Modifier) {
+    val drawerState = rememberDrawerState(DrawerValue.Closed)
+    ModalNavigationDrawer(
+        drawerContent = {
+            ModalDrawerSheet(
+                modifier = Modifier.width(200.dp)
+            ) {
+                Text(
+                    modifier = Modifier.padding(30.dp),
+                    text = "Compose Playlist",
+                    fontSize = 26.sp
+                )
+                HorizontalDivider()
+                Spacer(modifier = Modifier.height(20.dp))
+                NavigationDrawerItem(
+                    label = { 
+                        Text(text = "Inbox")
+                    },
+                    selected = true ,
+                    onClick = {  },
+                    icon = {
+                        Icon(imageVector = Icons.Default.Email, contentDescription = "")
+                    },
+                    badge = {
+                        Icon(imageVector = Icons.Default.Check, contentDescription = "")
+                    }
+                )
+                NavigationDrawerItem(
+                    label = {
+                        Text(text = "Outbox")
+                    },
+                    selected = false ,
+                    onClick = {  },
+                    icon = {
+                        Icon(imageVector = Icons.Default.Send, contentDescription = "")
+                    }
+                )
+                NavigationDrawerItem(
+                    label = {
+                        Text(text = "Favorites")
+                    },
+                    selected = false ,
+                    onClick = {  },
+                    icon = {
+                        Icon(imageVector = Icons.Default.FavoriteBorder, contentDescription = "")
+                    }
+                )
+
+            }
+        },
+        drawerState = drawerState
+    ) {
+        ComposableScaffold(drawerState)
+    }
+}
 
 
 
