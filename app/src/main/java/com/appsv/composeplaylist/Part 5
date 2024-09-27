@@ -1,0 +1,15 @@
+
+              🌟 Welcome to the Jetpack Compose Playlist 🌟
+
+          💥Counter App, State
+
+            🚀 State
+                🔥State in an app is any value that can change over time.
+                🔥Any time a state is updated a recomposition takes place.
+            🚀 How we will create a state?
+            🚀 Example to explain State - Make a counter app
+                 (remember() vs rememberSaveable())
+            🚀 Example of efficient Recomposition
+
+
+          Ref : State and compose     (search)
