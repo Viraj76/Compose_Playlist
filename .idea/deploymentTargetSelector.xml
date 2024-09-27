@@ -5,10 +5,7 @@
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="Practice">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="ComposableNavigationDrawer">
+      <SelectionState runConfigName="ComposableCheckBoxes">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>
