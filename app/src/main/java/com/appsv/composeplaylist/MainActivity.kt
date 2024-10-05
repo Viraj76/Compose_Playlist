@@ -1067,7 +1067,6 @@ fun ComposableBottomSheet(modifier: Modifier = Modifier) {
                            sheetState.hide()
                            showBottomSheetDialog = false
                        }
-
                    },
                    modifier = Modifier
                        .fillMaxWidth()
@@ -1077,8 +1076,8 @@ fun ComposableBottomSheet(modifier: Modifier = Modifier) {
                }
            }
        }
-
    }
-
 }
+
+
 
