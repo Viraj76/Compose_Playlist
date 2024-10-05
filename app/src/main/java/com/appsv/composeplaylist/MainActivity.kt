@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -38,9 +39,12 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.sharp.Close
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Checkbox
@@ -48,6 +52,7 @@ import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.DrawerState
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
@@ -58,6 +63,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.IconButtonDefaults
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.ModalDrawerSheet
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
@@ -71,6 +77,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.material3.TriStateCheckbox
 import androidx.compose.material3.rememberDrawerState
+import androidx.compose.material3.rememberModalBottomSheetState
+import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -99,6 +107,7 @@ import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -777,8 +786,8 @@ fun ComposableTopAppbar(scrollBehavior: TopAppBarScrollBehavior, drawerState: Dr
         navigationIcon = {
             IconButton(onClick = {
 
-                    scope.launch {
-                        drawerState.apply {
+                scope.launch {
+                    drawerState.apply {
                         if(isOpen) close() else open()
                     }
                 }
@@ -844,25 +853,25 @@ fun ComposableScaffold(drawerState: DrawerState) {
 
 @Composable
 fun ComposableFAB(modifier: Modifier = Modifier) {
-   Box(
-       modifier = Modifier.fillMaxSize()
-   ) {
-       Dialog(onDismissRequest = { /*TODO*/ }) {
-           
-       }
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Dialog(onDismissRequest = { /*TODO*/ }) {
 
-       FloatingActionButton(
-           modifier = Modifier
-               .padding(20.dp)
-               .align(Alignment.BottomEnd),
-           onClick = { /*TODO*/ },
-       ) {
-           ModalNavigationDrawer(drawerContent = { /*TODO*/ }) {
-               
-           }
-           Icon(imageVector = Icons.Default.Add, contentDescription = "")
-       }
-   }
+        }
+
+        FloatingActionButton(
+            modifier = Modifier
+                .padding(20.dp)
+                .align(Alignment.BottomEnd),
+            onClick = { /*TODO*/ },
+        ) {
+            ModalNavigationDrawer(drawerContent = { /*TODO*/ }) {
+
+            }
+            Icon(imageVector = Icons.Default.Add, contentDescription = "")
+        }
+    }
 }
 
 @Composable
@@ -881,7 +890,7 @@ fun ComposableNavigationDrawer(modifier: Modifier = Modifier) {
                 HorizontalDivider()
                 Spacer(modifier = Modifier.height(20.dp))
                 NavigationDrawerItem(
-                    label = { 
+                    label = {
                         Text(text = "Inbox")
                     },
                     selected = true ,
@@ -923,7 +932,6 @@ fun ComposableNavigationDrawer(modifier: Modifier = Modifier) {
     }
 }
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ComposableDialog(modifier: Modifier = Modifier) {
 
@@ -981,8 +989,94 @@ fun ComposableDialog(modifier: Modifier = Modifier) {
             ComposableTextField()
         }
     }
+}
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true, showSystemUi = true)
+@Composable
+fun ComposableBottomSheet(modifier: Modifier = Modifier) {
 
+    var showBottomSheetDialog by remember {
+        mutableStateOf(false)
+    }
+    val scope = rememberCoroutineScope()
+
+    val sheetState = rememberModalBottomSheetState(
+        skipPartiallyExpanded = true
+    )
+
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ){
+        Button(onClick = {
+            showBottomSheetDialog = true
+        }) {
+            Text(text = "Show Bottom Sheet")
+        }
+
+        if(showBottomSheetDialog){
+            ModalBottomSheet(
+                modifier =  Modifier.fillMaxHeight(),
+                onDismissRequest = {
+                    showBottomSheetDialog = false
+                }
+            ) {
+                Text(
+                    modifier = Modifier.fillMaxWidth(),
+                    text = "Select",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 26.sp,
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.height(15.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.Edit, contentDescription = "")
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Text(text = "Edit")
+                }
+                Spacer(modifier = Modifier.height(15.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.Share, contentDescription = "")
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Text(text = "Share")
+                }
+                Spacer(modifier = Modifier.height(15.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                ) {
+                    Icon(imageVector = Icons.Default.ShoppingCart, contentDescription = "")
+                    Spacer(modifier = Modifier.width(20.dp))
+                    Text(text = "ShoppingCart")
+                }
+                Spacer(modifier = Modifier.height(15.dp))
+                Button(
+                    onClick = {
+
+                        scope.launch {
+                            sheetState.hide()
+                            showBottomSheetDialog = false
+                        }
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(20.dp)
+                ) {
+                    Text(text = "Hide Bottom Sheet")
+                }
+            }
+        }
+    }
 }
 
 
