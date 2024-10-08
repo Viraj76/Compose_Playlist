@@ -81,7 +81,7 @@ fun ComposableDisposableEffect(modifier: Modifier = Modifier) {
 
 }
 
-@Preview(showBackground = true)
+
 @Composable
 fun ComposableSideEffect(modifier: Modifier = Modifier) {
     var count by remember { mutableIntStateOf(0) }
@@ -100,6 +100,54 @@ fun ComposableSideEffect(modifier: Modifier = Modifier) {
        Text("Count $count")
    }
 
+}
+
+
+@Composable
+fun ComposableRememberScope(modifier: Modifier = Modifier) {
+
+    val scope = rememberCoroutineScope()
+
+
+
+    var buttonText by remember { mutableStateOf("Hello") }
+    Button(
+        onClick = {
+            scope.launch {
+                delay(2000)
+                buttonText = "World"
+            }
+        }
+    ) {
+        Text(buttonText)
+    }
+
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ComposableRememberUpdatedState(modifier: Modifier = Modifier) {
+    var count by remember { mutableIntStateOf(0) }
+
+    Button(
+        onClick = {
+            count = Random.nextInt(1,100)
+            Log.d("PapayaCoders" , "Random Count $count")
+        }
+    ) {
+        Text("Click")
+    }
+
+    ShowUpdatedValue(count)
+}
+
+@Composable
+fun ShowUpdatedValue(count: Int) {
+    val updatedCount = rememberUpdatedState(count)
+    LaunchedEffect(key1 = Unit) {
+        delay(10000)
+        Log.d("PapayaCoders" , "Updated Count ${updatedCount.value}")
+    }
 }
 
 
