@@ -1,4 +1,4 @@
-package com.appsv.composeplaylist.ui.theme
+package com.appsv.composeplaylist.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

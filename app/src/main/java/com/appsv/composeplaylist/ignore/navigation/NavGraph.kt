@@ -1,4 +1,4 @@
-package com.appsv.composeplaylist.navigation
+package com.appsv.composeplaylist.ignore.navigation
 
 import android.util.Log
 import androidx.compose.runtime.Composable
@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.appsv.composeplaylist.FirstScreen
-import com.appsv.composeplaylist.SecondScreen
+import com.appsv.composeplaylist.ignore.FirstScreen
+import com.appsv.composeplaylist.ignore.SecondScreen
 
 @Composable
 fun SetUpNavGraph(modifier: Modifier = Modifier) {
@@ -20,10 +20,12 @@ fun SetUpNavGraph(modifier: Modifier = Modifier) {
 
         composable<FirstScreen> {
             FirstScreen(){
-                navController.navigate(SecondScreen(
+                navController.navigate(
+                    SecondScreen(
                     name = "Virat",
                     age = 37
-                ))
+                )
+                )
             }
         }
 

@@ -1,4 +1,4 @@
-package com.appsv.composeplaylist.ui.theme
+package com.appsv.composeplaylist.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

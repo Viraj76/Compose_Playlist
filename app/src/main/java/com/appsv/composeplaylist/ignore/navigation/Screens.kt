@@ -1,4 +1,4 @@
-package com.appsv.composeplaylist.navigation
+package com.appsv.composeplaylist.ignore.navigation
 
 import kotlinx.serialization.Serializable
 

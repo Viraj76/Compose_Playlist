@@ -1,4 +1,4 @@
-package com.appsv.composeplaylist
+package com.appsv.composeplaylist.ignore
 
 import android.util.Log
 import androidx.compose.foundation.layout.Box
